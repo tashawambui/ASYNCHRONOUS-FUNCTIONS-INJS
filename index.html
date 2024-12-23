@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async/Await Example</title>
+</head>
+
+<body>
+    <h1>Async/Await Example</h1>
+    <button onclick="fetchData()">Fetch Data</button>
+    <div id="data"></div>
+
+    <script>
+        const mockData = [
+            { title: "Post 1", body: "This is the first post." },
+            { title: "Post 2", body: "This is the second post." },
+            { title: "Post 3", body: "This is the third post." }
+        ];
+
+        async function fetchData() {
+            try {
+                const data = await getMockData();
+                document.getElementById("data").innerHTML = data.map(post => `
+                    <div>
+                        <h3>${post.title}</h3>
+                        <p>${post.body}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                document.getElementById("data").innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        function getMockData() {
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(mockData), 1000);
+            });
+        }
+    </script>
+</body>
+
+</html>
